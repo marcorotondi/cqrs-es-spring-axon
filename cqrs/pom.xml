@@ -8,7 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>cqrs-axon</name>
+	<name>cqrs-axon-first</name>
 	<description>(CQRS+ES) with Spring &amp; Axon</description>
 
 	<parent>
