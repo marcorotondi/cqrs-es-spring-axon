@@ -11,4 +11,5 @@ services:
       - 5432:5432
     restart: always
     environment:
+      POSTGRES_USER: giftcard
       POSTGRES_PASSWORD: 12345
