@@ -54,11 +54,6 @@
             <version>${postgresql.jdbc.version}</version>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
-        </dependency>
 
         <!-- AxonDB: alternative to storing events and snapshots -->
         <dependency>
