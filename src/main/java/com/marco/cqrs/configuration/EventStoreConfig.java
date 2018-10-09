@@ -7,6 +7,7 @@ import org.axonframework.serialization.Serializer;
 import org.axonframework.serialization.json.JacksonSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 @Configuration
 public class EventStoreConfig {
@@ -21,9 +22,9 @@ public class EventStoreConfig {
         return new JacksonSerializer();
     }
 
-
-    @Bean(name = "eventBus")
-    public EventStore eventStore(AxonDBConfiguration axonDBConfiguration, Serializer eventSerializer) {
+    @Bean()
+    @Primary
+    public EventStore eventBus(AxonDBConfiguration axonDBConfiguration, Serializer eventSerializer) {
         return new AxonDBEventStore(axonDBConfiguration, eventSerializer);
     }
 }

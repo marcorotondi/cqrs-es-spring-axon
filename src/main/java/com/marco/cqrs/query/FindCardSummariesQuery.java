@@ -1,23 +1,24 @@
 package com.marco.cqrs.query;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class FetchCardSummariesQuery {
+public class FindCardSummariesQuery implements Serializable {
 
-    private final Long offset;
+    private final Integer offset;
 
-    private final Long limit;
+    private final Integer limit;
 
-    public FetchCardSummariesQuery(Long offset, Long limit) {
+    public FindCardSummariesQuery(Integer offset, Integer limit) {
         this.offset = offset;
         this.limit = limit;
     }
 
-    public Long getOffset() {
+    public Integer getOffset() {
         return offset;
     }
 
-    public Long getLimit() {
+    public Integer getLimit() {
         return limit;
     }
 
@@ -25,7 +26,7 @@ public class FetchCardSummariesQuery {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FetchCardSummariesQuery that = (FetchCardSummariesQuery) o;
+        FindCardSummariesQuery that = (FindCardSummariesQuery) o;
         return Objects.equals(getOffset(), that.getOffset()) &&
                 Objects.equals(getLimit(), that.getLimit());
     }
@@ -37,7 +38,7 @@ public class FetchCardSummariesQuery {
 
     @Override
     public String toString() {
-        return "FetchCardSummariesQuery{" +
+        return "FindCardSummariesQuery{" +
                 "offset=" + offset +
                 ", limit=" + limit +
                 '}';

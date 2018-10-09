@@ -1,6 +1,8 @@
 package com.marco.cqrs.query;
 
-public class CountCardSummariesQuery {
+import java.io.Serializable;
+
+public class CountCardSummariesQuery implements Serializable {
 
     @Override
     public String toString() {

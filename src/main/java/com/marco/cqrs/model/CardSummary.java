@@ -2,11 +2,12 @@ package com.marco.cqrs.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
 @Entity
-public class CardSummary {
+public class CardSummary implements Serializable {
 
     private String id;
 
@@ -15,6 +16,16 @@ public class CardSummary {
     private Instant issuedAt;
 
     private Long remainingValue;
+
+    public CardSummary() {
+    }
+
+    public CardSummary(String id, Long initialValue, Instant issuedAt, Long remainingValue) {
+        this.id = id;
+        this.initialValue = initialValue;
+        this.issuedAt = issuedAt;
+        this.remainingValue = remainingValue;
+    }
 
     @Id
     public String getId() {
