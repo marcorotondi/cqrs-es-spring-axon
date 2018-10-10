@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.lang.invoke.MethodHandles;
 import java.time.Instant;
 
@@ -45,7 +46,7 @@ public class CardSummaryProjection {
     public void on(RedeemedEvt evt) {
         log.info("Projecting event {}", evt);
 
-        var summary = entityManager.find(CardSummary.class, evt.getId());
+        final CardSummary summary = entityManager.find(CardSummary.class, evt.getId());
         summary.setRemainingValue(summary.getRemainingValue() - evt.getAmount());
         queryUpdateEventBus.publish(asEventMessage(new CardSummariesUpdatedEvt(evt.getId())));
     }
@@ -54,11 +55,11 @@ public class CardSummaryProjection {
     public FindCardSummariesResponse handle(FindCardSummariesQuery query) {
         log.info("Handling query {}", query);
 
-        var jpaQuery = entityManager.createQuery("SELECT c FROM CardSummary c ORDER BY c.id", CardSummary.class);
+        final Query jpaQuery = entityManager.createQuery("SELECT c FROM CardSummary c ORDER BY c.id", CardSummary.class);
         jpaQuery.setFirstResult(query.getOffset());
         jpaQuery.setMaxResults(query.getLimit());
 
-        var response = new FindCardSummariesResponse(jpaQuery.getResultList());
+        final FindCardSummariesResponse response = new FindCardSummariesResponse(jpaQuery.getResultList());
         log.info("returning {}", response);
 
         return response;
@@ -67,9 +68,9 @@ public class CardSummaryProjection {
     @QueryHandler
     public CountCardSummariesResponse handle(CountCardSummariesQuery query) {
         log.info("handling query {}", query);
-        var jpaQuery = entityManager.createQuery("SELECT COUNT(c) FROM CardSummary c", Long.class);
+        final Query jpaQuery = entityManager.createQuery("SELECT COUNT(c) FROM CardSummary c", Long.class);
 
-        var response = new CountCardSummariesResponse(((Long) jpaQuery.getSingleResult()));
+        final CountCardSummariesResponse response = new CountCardSummariesResponse(((Long) jpaQuery.getSingleResult()));
         log.info("returning {}", response);
 
         return response;
