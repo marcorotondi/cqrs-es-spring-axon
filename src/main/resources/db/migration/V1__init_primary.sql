@@ -11,7 +11,7 @@ CREATE TABLE token_entry (
 CREATE TABLE card_summary (
   id              VARCHAR(255) NOT NULL,
   initial_value   INT4,
-  issued_at       BYTEA,
+  issued_at       TIMESTAMP,
   remaining_value INT4,
   PRIMARY KEY (id)
 );
