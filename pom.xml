@@ -79,6 +79,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+        <dependency>
+            <groupId>org.axonframework</groupId>
+            <artifactId>axon-test</artifactId>
+            <version>3.3</version>
+            <scope>test</scope>
+        </dependency>
 	</dependencies>
 
     <dependencyManagement>
