@@ -28,6 +28,10 @@ public class GiftCard {
         logger.info("Empty constructor invoked");
     }
 
+    public long getCurrentValue() {
+        return currentValue;
+    }
+
     @CommandHandler
     public GiftCard(IssueCmd cmd) {
         logger.info("handling {}", cmd);
