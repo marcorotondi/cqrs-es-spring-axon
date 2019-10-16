@@ -7,53 +7,52 @@ import com.marco.cqrs.command.RedeemedEvt;
 import com.marco.cqrs.model.GiftCard;
 import org.axonframework.test.aggregate.AggregateTestFixture;
 import org.axonframework.test.aggregate.FixtureConfiguration;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
 public class CqrsAxonApplicationTests {
 
 	private FixtureConfiguration<GiftCard> fixture;
 
-	@Before
-	public void init() {
+	@BeforeEach
+	void init() {
 		fixture = new AggregateTestFixture<>(GiftCard.class);
 	}
 
 	@Test
-	public void createGiftCardTest() {
+	void createGiftCardTest() {
 		fixture.givenNoPriorActivity()
 				.when(new IssueCmd("first", 1000L))
 				.expectEvents(new IssuedEvt("first", 1000L));
 	}
 
 	@Test
-	public void throwErrorWhenAmountIsZeroOnIssueGiftCard() {
+	void throwErrorWhenAmountIsZeroOnIssueGiftCard() {
 		fixture.givenNoPriorActivity()
 				.when(new IssueCmd("first", 0L))
 				.expectException(IllegalArgumentException.class);
 	}
 
 	@Test
-	public void redeemGiftCardTest() {
+	void redeemGiftCardTest() {
 		fixture.given(new IssuedEvt("first", 1000L))
 				.when(new RedeemCmd("first", 100L))
 				.expectEvents(new RedeemedEvt("first", 100L));
 	}
 
 	@Test
-	public void redeemGiftCardValue() {
+	void redeemGiftCardValue() {
 		final GiftCard giftCard = new GiftCard();
 
 		giftCard.onIssuedEvent(new IssuedEvt("first", 1000L));
 		giftCard.onRedeemEvent(new RedeemedEvt("first", 100L));
 
-		Assert.assertEquals(900L, giftCard.getCurrentValue());
+		Assertions.assertEquals(900L, giftCard.getCurrentValue());
 	}
-
-
-
 }
